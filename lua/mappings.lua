@@ -19,3 +19,15 @@ map("n", "<leader>/", function()
   end, { noremap = true, silent = true, desc = "Toggle comment visual" })
 
 
+-- タブ操作のキーマッピング
+-- 次のバッファへ
+map("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
+
+-- 前のバッファへ
+map("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
+
+-- 現在のバッファを閉じる
+map("n", "<leader>q", function()
+    vim.cmd("bdelete")
+    vim.cmd("enew")
+  end, { noremap = true, silent = true, desc = "Close buffer and open new empty buffer" })

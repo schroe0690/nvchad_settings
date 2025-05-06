@@ -59,6 +59,12 @@ return {
           },
         },
       })
+      -- 起動時にNvimTreeを開く
+      vim.api.nvim_create_autocmd({ "VimEnter" }, {
+        callback = function()
+          require("nvim-tree.api").tree.open()
+        end,
+      })
     end,
   },
 
