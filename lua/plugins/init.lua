@@ -8,8 +8,12 @@ return {
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      { "williamboman/mason.nvim", config = true },
+      "williamboman/mason-lspconfig.nvim",
+    },
     config = function()
-      require "configs.lspconfig"
+      require("custom.plugins.lspconfig") -- 後述の設定ファイルを読み込む
     end,
   },
 
@@ -23,6 +27,24 @@ return {
     config = function()
       require("custom.plugins.lspconfig") -- 後述の設定ファイルを読み込む
     end,
+  },
+
+  -- Masonの設定
+  {
+    "williamboman/mason.nvim",
+    lazy = false,
+    config = function()
+      require("mason").setup({
+        automatic_installation = true, -- 自動インストールを有効化
+        ui = {
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+          }
+        }
+      })
+    end
   },
 
   -- 透過用のプラグイン
@@ -88,5 +110,5 @@ return {
       require("Comment").setup()
     end,
   },
-  
+
 }
