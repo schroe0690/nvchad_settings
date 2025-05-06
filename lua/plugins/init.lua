@@ -61,4 +61,14 @@ return {
       })
     end,
   },
+
+  -- コメントアウト用のプラグイン
+  {
+    "numToStr/Comment.nvim",
+    lazy = false,
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+  
 }
