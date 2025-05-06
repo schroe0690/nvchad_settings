@@ -4,9 +4,6 @@ local mason_lspconfig = require("mason-lspconfig")
 -- 自動インストールするLSPサーバーのリスト
 mason_lspconfig.setup({
   automatic_installation = true,
-  ensure_installed = {
-    "lua_ls",           -- Lua
-  },
 })
 
 -- LSPの共通設定
