@@ -5,10 +5,6 @@
 ---@type ChadrcConfig
 local M = {}
 
-M.ui = {
-  theme = "scaryforest",
-}
-
 M.base46 = {
 	theme = "scaryforest",
 
