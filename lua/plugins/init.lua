@@ -13,6 +13,18 @@ return {
     end,
   },
 
+  -- lspのプラグイン
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      { "williamboman/mason.nvim", config = true },
+      "williamboman/mason-lspconfig.nvim",
+    },
+    config = function()
+      require("custom.plugins.lspconfig") -- 後述の設定ファイルを読み込む
+    end,
+  },
+
   -- 透過用のプラグイン
   {
     "xiyaowong/transparent.nvim",
