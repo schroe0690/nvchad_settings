@@ -103,7 +103,7 @@ return {
       })
 
       -- TypeScript/React LSP
-      lspconfig.ts_ls.setup({
+      lspconfig.tsserver.setup({
         capabilities = capabilities,
         settings = {
           typescript = {
@@ -181,6 +181,23 @@ return {
           position = "right",
           size = 80,
         },
+      }
+      
+      -- 補完設定
+      vim.g.vlime_enable_autodoc = true
+      vim.g.vlime_enable_autodoc_on_hover = true
+      vim.g.vlime_enable_autodoc_on_completion = true
+      vim.g.vlime_enable_autodoc_on_completion_delay = 0.5
+      
+      -- キーマッピング
+      vim.api.nvim_set_keymap('i', '<C-Space>', '<Plug>VlimeComplete', {noremap = false})
+      vim.api.nvim_set_keymap('n', '<C-Space>', '<Plug>VlimeComplete', {noremap = false})
+      
+      -- 補完メニューの設定
+      vim.g.vlime_completion_menu = {
+        enabled = true,
+        max_items = 20,
+        min_chars = 2,
       }
     end,
   },
