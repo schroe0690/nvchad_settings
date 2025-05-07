@@ -69,4 +69,119 @@ return {
     end,
   },
 
+  -- LSP設定
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+    },
+    config = function()
+      local lspconfig = require("lspconfig")
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
+
+      -- LSPの設定
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      
+      -- Python LSP
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      })
+
+      -- TypeScript/React LSP
+      lspconfig.tsserver.setup({
+        capabilities = capabilities,
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+        },
+      })
+
+      -- 補完の設定
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
+        }),
+      })
+    end,
+  },
+
+  -- Treesitter設定
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "python",
+          "javascript",
+          "typescript",
+          "tsx",
+          "html",
+          "css",
+          "json",
+        },
+        highlight = {
+          enable = true,
+        },
+        indent = {
+          enable = true,
+        },
+      })
+    end,
+  },
+
+  -- Vlime for LISP
+  {
+    "vlime/vlime",
+    lazy = false,
+    config = function()
+      vim.g.vlime_leader = "\\"
+      vim.g.vlime_enable_autodoc = true
+      vim.g.vlime_window_settings = {
+        repl = {
+          position = "right",
+          size = 80,
+        },
+      }
+    end,
+  },
 }
