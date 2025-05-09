@@ -1,6 +1,8 @@
 return {
   "monkoose/nvlime",
   -- ft = "lisp", -- lispファイルを開いた際に有効化
+  ft = { "lisp", "lsp", "cl", "lispworks" },
+  lazy = false,
   dependencies = {
     "monkoose/parsley"
   },
@@ -10,7 +12,6 @@ return {
       host = "127.0.0.1",
       port = 4005,
     }
-    -- 必要に応じて追加設定
   end,
 }
   
