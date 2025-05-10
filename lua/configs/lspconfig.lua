@@ -7,19 +7,14 @@ local capabilities = require("nvchad.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 
 -- LSPサーバー一覧
-local servers = { "html", "cssls", "pyright" } -- alive_lspは個別に設定するため、ここからは削除
+local servers = { "html", "cssls", "pyright" }
 
--- alive-lsp（Common Lisp用LSP）の個別セットアップ
-lspconfig.alive_lsp.setup {
-  cmd = {
-    "sbcl",
-    "--load", "~/quicklisp/setup.lisp",
-    "--eval", "(ql:quickload :alive-lsp)",
-    "--eval", "(alive/server:start)"
-  },
-  filetypes = { "lisp", "lsp", "commonlisp" },
-  root_dir = lspconfig.util.root_pattern(".git", "."),
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-}
+-- 各LSPサーバーの設定を適用
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+  }
+end
+
