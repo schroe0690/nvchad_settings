@@ -10,16 +10,4 @@ M.base46 = {
 	theme = "scaryforest",
 }
 
-M.configs = {
-  lspconfig = {
-    servers = {
-      cl_lsp = {
-        cmd = {"cl-lsp" },
-        -- filetypes = { "lisp" }, -- 最低限、:set ft? で確認したもの一つだけにする
-      },
-    },
-  },
-}
-
-
 return M
